@@ -1,0 +1,138 @@
+<title>HSS Bot Fiscal NF</title>
+<meta charset="UTF-8">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root{--bg:#06091a;--card:#0b0d1f;--card2:#10122b;--purple:#7c3aed;--purple2:#a855f7;--cyan:#22d3ee;--green:#25d366;--orange:#f97316;--border:rgba(255,255,255,0.09);--muted:#94a3b8;--text:#fff;color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:max(24px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(24px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.stage{width:min(420px,100%);aspect-ratio:9/16;position:relative;background:var(--bg);border-radius:28px;overflow:hidden;border:1px solid var(--border);box-shadow:0 0 0 1px rgba(249,115,22,.25),0 48px 120px rgba(0,0,0,.7)}
+.glow{position:absolute;border-radius:50%;pointer-events:none}
+.gt{width:340px;height:340px;background:radial-gradient(circle,rgba(249,115,22,.18) 0%,transparent 70%);top:-140px;left:50%;transform:translateX(-50%)}
+.gb{width:240px;height:240px;background:radial-gradient(circle,rgba(124,58,237,.13) 0%,transparent 70%);bottom:40px;right:-50px}
+.si{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;padding:26px 20px 22px}
+.tb{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.logo{display:flex;align-items:center;gap:9px}
+.lm{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,var(--purple),var(--purple2));display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-weight:800;font-size:.68rem;color:#fff;flex-shrink:0}
+.ln{font-family:'Sora',sans-serif;font-size:.72rem;font-weight:700;color:var(--muted)}
+.pill{display:flex;align-items:center;gap:5px;background:rgba(37,211,102,.12);border:1px solid rgba(37,211,102,.3);border-radius:50px;padding:3px 9px;font-size:.65rem;font-weight:600;color:var(--green)}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:pd 1.8s ease-in-out infinite}
+@keyframes pd{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}
+.hb{margin-bottom:14px}
+.ey{font-size:.62rem;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:.12em;margin-bottom:6px}
+.ht{font-family:'Sora',sans-serif;font-size:1.3rem;font-weight:800;line-height:1.2;text-wrap:balance}
+.grad{background:linear-gradient(90deg,var(--orange),#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hs{margin-top:7px;font-size:.73rem;color:var(--muted);line-height:1.5}
+.flow{display:flex;flex-direction:column;gap:0;flex:1}
+.node{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:11px 13px;position:relative;overflow:hidden}
+.node::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(249,115,22,.07) 0%,transparent 55%);pointer-events:none}
+.node.src{border-color:rgba(249,115,22,.3)}
+.node.bot{border-color:rgba(124,58,237,.4);background:var(--card2)}
+.node.out{border-color:rgba(37,211,102,.2)}
+.node.out::before{background:linear-gradient(135deg,rgba(37,211,102,.06) 0%,transparent 55%)}
+.nh{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.ni{width:30px;height:30px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.9rem}
+.ni.o{background:rgba(249,115,22,.12);border:1px solid rgba(249,115,22,.3)}
+.ni.p{background:rgba(124,58,237,.2);border:1px solid rgba(124,58,237,.35)}
+.ni.g{background:rgba(37,211,102,.12);border:1px solid rgba(37,211,102,.2)}
+.nl{font-family:'Sora',sans-serif;font-size:.77rem;font-weight:700}
+.ns{font-size:.6rem;color:var(--muted);margin-top:1px}
+.pedido{display:flex;flex-direction:column;gap:4px}
+.prow{display:flex;align-items:center;justify-content:space-between;padding:4px 8px;border-radius:6px;opacity:0;animation:fr .35s ease both}
+.prow:nth-child(1){animation-delay:.2s;background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.2)}
+.prow:nth-child(2){animation-delay:.45s}.prow:nth-child(3){animation-delay:.7s}.prow:nth-child(4){animation-delay:.95s}
+.prow:not(:first-child){background:rgba(255,255,255,.03);border:1px solid var(--border)}
+@keyframes fr{from{opacity:0;transform:translateX(-5px)}to{opacity:1;transform:translateX(0)}}
+.pl{font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.pv{font-size:.65rem;font-weight:700;color:var(--text)}
+.pv.hl{color:var(--orange)}
+.pv.ok{color:var(--green)}
+.arr{display:flex;flex-direction:column;align-items:center;padding:3px 0;height:36px}
+.al{font-size:.56rem;font-weight:600;color:var(--muted);background:var(--bg);padding:1px 8px;border-radius:50px;border:1px solid var(--border);white-space:nowrap;z-index:1;margin:auto 0}
+.aline{width:2px;flex:1;background:linear-gradient(180deg,rgba(249,115,22,.6),rgba(251,191,36,.4));position:relative}
+.aline::after{content:'';position:absolute;bottom:-1px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid rgba(251,191,36,.6)}
+.td{width:6px;height:6px;border-radius:50%;background:var(--orange);box-shadow:0 0 8px var(--orange);position:absolute;left:50%;transform:translateX(-50%);animation:tv 2s ease-in-out infinite}
+@keyframes tv{0%{top:0;opacity:0}10%{opacity:1}90%{opacity:1}100%{top:100%;opacity:0}}
+.bi{display:flex;align-items:center;gap:10px}
+.spin{width:44px;height:44px;border-radius:50%;flex-shrink:0;background:conic-gradient(var(--purple) 0deg,var(--orange) 180deg,transparent 181deg);animation:sp 2s linear infinite;position:relative}
+.spin::before{content:'🤖';position:absolute;inset:0;margin:auto;font-size:1.1rem;background:var(--card2);width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+@keyframes sp{to{transform:rotate(360deg)}}
+.bst{display:flex;flex-direction:column;gap:4px;flex:1}
+.bs{display:flex;align-items:center;gap:5px;font-size:.6rem;color:var(--muted);opacity:0;animation:fr .3s ease both}
+.bs:nth-child(1){animation-delay:1.4s}.bs:nth-child(2){animation-delay:1.7s}.bs:nth-child(3){animation-delay:2s}
+.ck{width:14px;height:14px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.5rem;font-weight:700;background:rgba(124,58,237,.2);border:1px solid rgba(124,58,237,.4);color:var(--purple2)}
+.bs.done .ck{background:rgba(37,211,102,.15);border-color:rgba(37,211,102,.4);color:var(--green)}
+.og{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.oc{border-radius:9px;padding:9px 10px;display:flex;flex-direction:column;gap:3px;opacity:0;animation:pi .5s cubic-bezier(.34,1.56,.64,1) both}
+.oc:nth-child(1){animation-delay:2.4s}.oc:nth-child(2){animation-delay:2.7s}
+@keyframes pi{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
+.oc.g{background:rgba(37,211,102,.12);border:1px solid rgba(37,211,102,.3)}
+.oc.o{background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.3)}
+.oi{font-size:1.25rem}
+.on{font-size:.6rem;font-weight:700;color:var(--text)}
+.om{font-size:.53rem;color:var(--muted)}
+.obg{display:inline-flex;align-items:center;font-size:.52rem;font-weight:700;margin-top:2px;padding:2px 6px;border-radius:4px}
+.obg.g{background:rgba(37,211,102,.2);color:#4ade80}
+.obg.o{background:rgba(249,115,22,.15);color:var(--orange)}
+.fc{margin-top:12px;display:flex;align-items:center;justify-content:space-between}
+.wa{display:flex;align-items:center;gap:7px;background:rgba(37,211,102,.13);border:1px solid rgba(37,211,102,.35);border-radius:50px;padding:8px 16px;font-size:.72rem;font-weight:700;color:var(--green);font-family:'Sora',sans-serif}
+.tag{background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.25);border-radius:50px;padding:5px 11px;font-size:.62rem;font-weight:700;color:var(--orange)}
+</style>
+<link rel="stylesheet" href="hss-demo-layout.css">
+
+<div class="stage">
+  <div class="glow gt"></div>
+  <div class="glow gb"></div>
+  <div class="si">
+    <div class="tb">
+      <div class="logo"><div class="lm">HSS</div><div class="ln">Hyngrid Soluções</div></div>
+      <div class="pill"><div class="dot"></div>Emitindo NF-e</div>
+    </div>
+    <div class="hb">
+      <div class="ey">Fiscal · Emissão Automática de NF</div>
+      <h1 class="ht">Venda fechada,<br>NF <span class="grad">emitida.</span></h1>
+      <p class="hs">Sem abrir sistema fiscal, sem digitar CNPJ — nota gerada e enviada na hora.</p>
+    </div>
+    <div class="flow">
+      <div class="node src">
+        <div class="nh"><div class="ni o">🛒</div><div><div class="nl">ERP / Sistema de Vendas</div><div class="ns">Pedido #4821 · Aprovado</div></div></div>
+        <div class="pedido">
+          <div class="prow"><span class="pl">Pedido</span><span class="pv hl">#4821 · R$ 3.850,00</span></div>
+          <div class="prow"><span class="pl">Cliente</span><span class="pv">TechCorp Ltda</span></div>
+          <div class="prow"><span class="pl">CNPJ</span><span class="pv">12.345.678/0001-99</span></div>
+          <div class="prow"><span class="pl">Serviço</span><span class="pv ok">Aprovado ✓</span></div>
+        </div>
+      </div>
+      <div class="arr"><div class="aline"><div class="td"></div></div><div class="al">lê o pedido e emite NF</div></div>
+      <div class="node bot">
+        <div class="bi">
+          <div class="spin"></div>
+          <div class="bst">
+            <div class="bs done"><div class="ck">✓</div>Leu o pedido no ERP</div>
+            <div class="bs done"><div class="ck">✓</div>Gerou NF-e · Série 001 nº 4821</div>
+            <div class="bs"><div class="ck">⋯</div>Validando com SEFAZ…</div>
+          </div>
+        </div>
+      </div>
+      <div class="arr"><div class="aline"><div class="td" style="animation-delay:1s"></div></div><div class="al">autoriza e envia ao cliente</div></div>
+      <div class="node out">
+        <div class="nh"><div class="ni g">📄</div><div><div class="nl">NF autorizada e enviada</div><div class="ns">SEFAZ OK · Sem fila · Sem erro</div></div></div>
+        <div class="og">
+          <div class="oc g"><div class="oi">📄</div><div class="on">NF-e Autorizada</div><div class="om">nNF: 004821 · SEFAZ OK</div><div class="obg g">✓ Emitida</div></div>
+          <div class="oc o"><div class="oi">📧</div><div class="on">Enviada ao cliente</div><div class="om">XML + DANFE por e-mail</div><div class="obg o">→ Automático</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="fc">
+      <div class="wa">💬 Quero esse bot</div>
+      <div class="tag">📄 Fiscal · NF-e</div>
+    </div>
+  </div>
+</div>
+<script>
+setTimeout(()=>{const s=document.querySelectorAll('.bs');if(s[2]){s[2].classList.add('done');s[2].querySelector('.ck').textContent='✓'}},2400);
+const st=document.querySelector('.stage');let g=0,gd=1;
+function gl(){g+=.007*gd;if(g>=1)gd=-1;if(g<=0)gd=1;st.style.boxShadow=`0 0 0 1px rgba(249,115,22,${.2+g*.18}),0 48px 120px rgba(0,0,0,.7)`;requestAnimationFrame(gl)}
+requestAnimationFrame(gl);
+</script>
+<script src="site-language.js"></script>

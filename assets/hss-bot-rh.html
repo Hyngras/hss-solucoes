@@ -1,0 +1,148 @@
+<title>HSS Bot de RH Onboarding</title>
+<meta charset="UTF-8">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root{--bg:#06091a;--card:#0b0d1f;--card2:#10122b;--purple:#7c3aed;--purple2:#a855f7;--cyan:#22d3ee;--green:#25d366;--rose:#f43f5e;--border:rgba(255,255,255,0.09);--muted:#94a3b8;--text:#fff;color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:max(24px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(24px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.stage{width:min(420px,100%);aspect-ratio:9/16;position:relative;background:var(--bg);border-radius:28px;overflow:hidden;border:1px solid var(--border);box-shadow:0 0 0 1px rgba(244,63,94,.25),0 48px 120px rgba(0,0,0,.7)}
+.glow{position:absolute;border-radius:50%;pointer-events:none}
+.gt{width:340px;height:340px;background:radial-gradient(circle,rgba(244,63,94,.15) 0%,transparent 70%);top:-140px;left:50%;transform:translateX(-50%)}
+.gb{width:240px;height:240px;background:radial-gradient(circle,rgba(124,58,237,.13) 0%,transparent 70%);bottom:40px;right:-50px}
+.si{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;padding:26px 20px 22px}
+.tb{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.logo{display:flex;align-items:center;gap:9px}
+.lm{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,var(--purple),var(--purple2));display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-weight:800;font-size:.68rem;color:#fff;flex-shrink:0}
+.ln{font-family:'Sora',sans-serif;font-size:.72rem;font-weight:700;color:var(--muted)}
+.pill{display:flex;align-items:center;gap:5px;background:rgba(37,211,102,.12);border:1px solid rgba(37,211,102,.3);border-radius:50px;padding:3px 9px;font-size:.65rem;font-weight:600;color:var(--green)}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:pd 1.8s ease-in-out infinite}
+@keyframes pd{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}
+.hb{margin-bottom:14px}
+.ey{font-size:.62rem;font-weight:700;color:var(--rose);text-transform:uppercase;letter-spacing:.12em;margin-bottom:6px}
+.ht{font-family:'Sora',sans-serif;font-size:1.3rem;font-weight:800;line-height:1.2;text-wrap:balance}
+.grad{background:linear-gradient(90deg,var(--rose),var(--purple2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hs{margin-top:7px;font-size:.73rem;color:var(--muted);line-height:1.5}
+.flow{display:flex;flex-direction:column;gap:0;flex:1}
+.node{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:11px 13px;position:relative;overflow:hidden}
+.node::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(244,63,94,.07) 0%,transparent 55%);pointer-events:none}
+.node.src{border-color:rgba(244,63,94,.3)}
+.node.bot{border-color:rgba(124,58,237,.4);background:var(--card2)}
+.node.out{border-color:rgba(37,211,102,.2)}
+.node.out::before{background:linear-gradient(135deg,rgba(37,211,102,.06) 0%,transparent 55%)}
+.nh{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.ni{width:30px;height:30px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.9rem}
+.ni.rs{background:rgba(244,63,94,.12);border:1px solid rgba(244,63,94,.3)}
+.ni.p{background:rgba(124,58,237,.2);border:1px solid rgba(124,58,237,.35)}
+.ni.g{background:rgba(37,211,102,.12);border:1px solid rgba(37,211,102,.2)}
+.nl{font-family:'Sora',sans-serif;font-size:.77rem;font-weight:700}
+.ns{font-size:.6rem;color:var(--muted);margin-top:1px}
+.profile{display:flex;flex-direction:column;gap:4px}
+.pcard{display:grid;grid-template-columns:1fr 1fr;gap:4px;opacity:0;animation:fr .35s ease both}
+.pcard:nth-child(1){animation-delay:.2s}.pcard:nth-child(2){animation-delay:.5s}
+.pf{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:6px;padding:5px 8px}
+.pfl{font-size:.52rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:1px}
+.pfv{font-size:.63rem;font-weight:600;color:var(--text)}
+.docs-row{display:flex;align-items:center;gap:6px;margin-top:5px;padding:5px 8px;border-radius:6px;background:rgba(37,211,102,.07);border:1px solid rgba(37,211,102,.2);opacity:0;animation:fr .35s 1s ease both}
+.doc-icons{display:flex;gap:3px;font-size:.85rem}
+.doc-info{flex:1;font-size:.6rem;color:rgba(255,255,255,.8)}
+.doc-badge{font-size:.52rem;font-weight:700;background:rgba(37,211,102,.2);color:#4ade80;padding:2px 6px;border-radius:4px}
+@keyframes fr{from{opacity:0;transform:translateX(-5px)}to{opacity:1;transform:translateX(0)}}
+.arr{display:flex;flex-direction:column;align-items:center;padding:3px 0;height:36px}
+.al{font-size:.56rem;font-weight:600;color:var(--muted);background:var(--bg);padding:1px 8px;border-radius:50px;border:1px solid var(--border);white-space:nowrap;z-index:1;margin:auto 0}
+.aline{width:2px;flex:1;background:linear-gradient(180deg,rgba(244,63,94,.6),rgba(168,85,247,.4));position:relative}
+.aline::after{content:'';position:absolute;bottom:-1px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid rgba(168,85,247,.6)}
+.td{width:6px;height:6px;border-radius:50%;background:var(--rose);box-shadow:0 0 8px var(--rose);position:absolute;left:50%;transform:translateX(-50%);animation:tv 2s ease-in-out infinite}
+@keyframes tv{0%{top:0;opacity:0}10%{opacity:1}90%{opacity:1}100%{top:100%;opacity:0}}
+.bi{display:flex;align-items:center;gap:10px}
+.spin{width:44px;height:44px;border-radius:50%;flex-shrink:0;background:conic-gradient(var(--purple) 0deg,var(--rose) 180deg,transparent 181deg);animation:sp 2s linear infinite;position:relative}
+.spin::before{content:'🤖';position:absolute;inset:0;margin:auto;font-size:1.1rem;background:var(--card2);width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+@keyframes sp{to{transform:rotate(360deg)}}
+.bst{display:flex;flex-direction:column;gap:4px;flex:1}
+.bs{display:flex;align-items:center;gap:5px;font-size:.6rem;color:var(--muted);opacity:0;animation:fr .3s ease both}
+.bs:nth-child(1){animation-delay:1.4s}.bs:nth-child(2){animation-delay:1.7s}.bs:nth-child(3){animation-delay:2s}
+.ck{width:14px;height:14px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.5rem;font-weight:700;background:rgba(124,58,237,.2);border:1px solid rgba(124,58,237,.4);color:var(--purple2)}
+.bs.done .ck{background:rgba(37,211,102,.15);border-color:rgba(37,211,102,.4);color:var(--green)}
+.og{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.oc{border-radius:9px;padding:9px 10px;display:flex;flex-direction:column;gap:3px;opacity:0;animation:pi .5s cubic-bezier(.34,1.56,.64,1) both}
+.oc:nth-child(1){animation-delay:2.4s}.oc:nth-child(2){animation-delay:2.7s}
+@keyframes pi{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
+.oc.g{background:rgba(37,211,102,.12);border:1px solid rgba(37,211,102,.3)}
+.oc.r{background:rgba(244,63,94,.1);border:1px solid rgba(244,63,94,.3)}
+.oi{font-size:1.25rem}
+.on{font-size:.6rem;font-weight:700;color:var(--text)}
+.om{font-size:.53rem;color:var(--muted)}
+.obg{display:inline-flex;align-items:center;font-size:.52rem;font-weight:700;margin-top:2px;padding:2px 6px;border-radius:4px}
+.obg.g{background:rgba(37,211,102,.2);color:#4ade80}
+.obg.r{background:rgba(244,63,94,.15);color:#fda4af}
+.fc{margin-top:12px;display:flex;align-items:center;justify-content:space-between}
+.wa{display:flex;align-items:center;gap:7px;background:rgba(37,211,102,.13);border:1px solid rgba(37,211,102,.35);border-radius:50px;padding:8px 16px;font-size:.72rem;font-weight:700;color:var(--green);font-family:'Sora',sans-serif}
+.tag{background:rgba(244,63,94,.1);border:1px solid rgba(244,63,94,.25);border-radius:50px;padding:5px 11px;font-size:.62rem;font-weight:700;color:#fda4af}
+</style>
+<link rel="stylesheet" href="hss-demo-layout.css">
+
+<div class="stage">
+  <div class="glow gt"></div>
+  <div class="glow gb"></div>
+  <div class="si">
+    <div class="tb">
+      <div class="logo"><div class="lm">HSS</div><div class="ln">Hyngrid Soluções</div></div>
+      <div class="pill"><div class="dot"></div>Onboarding ativo</div>
+    </div>
+    <div class="hb">
+      <div class="ey">RH · Onboarding Automático</div>
+      <h1 class="ht">Novo colaborador<br><span class="grad">em 1 clique.</span></h1>
+      <p class="hs">Formulário preenchido, bot cuida do resto: documentos, acessos e boas-vindas.</p>
+    </div>
+    <div class="flow">
+      <div class="node src">
+        <div class="nh"><div class="ni rs">👥</div><div><div class="nl">Formulário de Admissão</div><div class="ns">Mariana Rocha · Analista de TI</div></div></div>
+        <div class="profile">
+          <div class="pcard">
+            <div class="pf"><div class="pfl">Nome</div><div class="pfv">Mariana Rocha</div></div>
+            <div class="pf"><div class="pfl">Cargo</div><div class="pfv">Analista de TI</div></div>
+          </div>
+          <div class="pcard">
+            <div class="pf"><div class="pfl">Início</div><div class="pfv">20/10/2026</div></div>
+            <div class="pf"><div class="pfl">Departamento</div><div class="pfv">Tecnologia</div></div>
+          </div>
+        </div>
+        <div class="docs-row">
+          <div class="doc-icons">📄📋🪪</div>
+          <div class="doc-info">8 documentos enviados</div>
+          <div class="doc-badge">✓ Completo</div>
+        </div>
+      </div>
+      <div class="arr"><div class="aline"><div class="td"></div></div><div class="al">processa documentos</div></div>
+      <div class="node bot">
+        <div class="bi">
+          <div class="spin"></div>
+          <div class="bst">
+            <div class="bs done"><div class="ck">✓</div>Processou 8 documentos</div>
+            <div class="bs done"><div class="ck">✓</div>Criou contas nos sistemas</div>
+            <div class="bs"><div class="ck">⋯</div>Enviando kit boas-vindas…</div>
+          </div>
+        </div>
+      </div>
+      <div class="arr"><div class="aline"><div class="td" style="animation-delay:1s"></div></div><div class="al">libera acessos e envia kit</div></div>
+      <div class="node out">
+        <div class="nh"><div class="ni g">🎉</div><div><div class="nl">Colaboradora pronta para começar</div><div class="ns">Tudo automático · Sem filas de RH</div></div></div>
+        <div class="og">
+          <div class="oc g"><div class="oi">📋</div><div class="on">Kit boas-vindas</div><div class="om">Manual + cronograma</div><div class="obg g">✓ Enviado</div></div>
+          <div class="oc r"><div class="oi">🔑</div><div class="on">Acessos liberados</div><div class="om">E-mail · Slack · ERP</div><div class="obg r">✓ Ativo</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="fc">
+      <div class="wa">💬 Quero esse bot</div>
+      <div class="tag">👥 RH · Onboarding</div>
+    </div>
+  </div>
+</div>
+<script>
+setTimeout(()=>{const s=document.querySelectorAll('.bs');if(s[2]){s[2].classList.add('done');s[2].querySelector('.ck').textContent='✓'}},2400);
+const st=document.querySelector('.stage');let g=0,gd=1;
+function gl(){g+=.007*gd;if(g>=1)gd=-1;if(g<=0)gd=1;st.style.boxShadow=`0 0 0 1px rgba(244,63,94,${.2+g*.18}),0 48px 120px rgba(0,0,0,.7)`;requestAnimationFrame(gl)}
+requestAnimationFrame(gl);
+</script>
+<script src="site-language.js"></script>
